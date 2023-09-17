@@ -148,19 +148,25 @@
                 {% if data %}
                 
                     <p>prediction: </p>
-                    {% if data.prediction == "Neutral" %}
+                    
+                    
+                    {% if data.prediction == "Negative" %}
                     <p id="Prediction" style="color: white; background-color: red;">{{data.prediction}}</p>
                     <p id="pConfidence" style="color: white; background-color: red;">{{data.certainty}}%</p>
                     <script>
                         // creates a paragraph element displaying teh value of 1-data.certainty
                         document.getElementById("pConfidence").innerHTML = {{100-data.certainty}}+"%";
                     </script>
+                    
                     {% else %}
                     <p id="Prediction" style="color: white; background-color: green;">{{data.prediction}}</p>
+                    <p id="pConfidence" style="color: white; background-color: green;">{{data.certainty}}%</p>
                     <script>
                         document.getElementById("pConfidence").innerHTML = {{data.certainty}}+"%";
                     </script>
+                    
                     {% endif %}
+                    
                 
                 <!-- <div id="graph">
                     <canvas id="stockHistoryChart"></canvas>
