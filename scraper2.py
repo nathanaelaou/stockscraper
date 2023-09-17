@@ -68,4 +68,4 @@ def calculate(ticker):
     #print(f'Overall Sentiment (Integer Format): {overall_sentiment_int}')
     #print(f'Certainty of Overall Sentiment: {certainty_percentage:.2f}%')
 
-    return [overall_sentiment_int, certainty_percentage]
+    return [overall_sentiment, certainty_percentage]

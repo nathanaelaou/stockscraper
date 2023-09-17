@@ -13,37 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>
-    
-    <script type="text/javascript">
-        function createChart() {
-            let data = document.getElementById("data").value;
             
-            console.log(data);
-            history_data = data["history"]
-            let sHC = document.getElementById("stockHistoryChart");
-
-
-            
-            let myChart = new Chart(sHC, {
-                type: "line",
-                data: {
-                    labels: ["Time over a year"],
-                    datasets: [
-                    {
-                        data: [100, 90, 200],
-                        backgroundColor: "rgba(153,205,1,0.6)",
-                    }
-                ]
-
-                }
-            }
-            );    
-            
-
-        }
-
-        
-    </script>
     <script src='static/javascript/script.js' type="text/javascript"></script>
       
     
@@ -62,87 +32,6 @@
         img{
             opacity: 0.8;
         }
-        
-        /* .wrapper{
-            max-width: 50rem;
-            width: 100%;
-            margin: 0 auto;
-        } 
-        
-        .tabs{
-            position: relative;
-            margin: 3rem 0;
-            /* background: rgba(9, 20, 31); */
-            overflow: hidden;
-            height: 14.75rem;
-        }
-
-        .tabs::before,
-        .tabs::after{
-            content: "";
-            display: table;
-        }
-        
-        .tabs::after {
-        clear: both;
-        }
-
-        .tab {
-        float: left;
-        }
-
-        .tab-switch {
-        display: none;
-        }
-        
-        .tab-label {
-        position: relative;
-        display: block;
-        line-height: 2.75em;
-        height: 3em;
-        padding: 0 1.618em;
-        background: rgba(108, 176, 242);
-        /*border-right: 0.125rem solid #16a085;*/
-        color: #fff;
-        cursor: pointer;
-        top: 0;
-        transition: all 0.25s;
-        }
-
-        .tab-label:hover {
-        top: -0.25rem;
-        transition: top 0.25s;
-        }
-        
-        .tab-content {
-        height: 12rem;
-        position: absolute;
-        z-index: 1;
-        top: 2.75em;
-        left: 0;
-        padding: 1.618rem;
-        background: #fff;
-        color: #2c3e50;
-        border-bottom: 0.25rem solid #bdc3c7;
-        opacity: 0;
-        transition: all 0.35s;
-        }
-
-        .tab-switch:checked + .tab-label {
-        background: #fff;
-        color: #2c3e50;
-        border-bottom: 0;
-        border-right: 0.125rem solid #fff;
-        transition: all 0.35s;
-        z-index: 1;
-        top: -0.0625rem;
-        }
-
-        .tab-switch:checked + label + .tab-content {
-        z-index: 2;
-        opacity: 1;
-        transition: all 0.35s;
-        } */
         
 
         .tab button{
@@ -249,19 +138,31 @@
                     <label for="StockTicker" id="PromptStockTicker">enter ticker symbol:</label>
                     <!-- take input, make all uppercase, save it as ticker somehow to give to submitTicker -->
                     
-                    <input type="text" oninput="this.value = this.value.toUpperCase()" id="Ticker" name="ticker" placeholder="e.g TSLA" maxlength="4" style="padding-left: 25px;">
+                    <input type="text" oninput="this.value = this.value.toUpperCase()" id="Ticker" name="ticker" placeholder="e.g TSLA" maxlength="4" style="padding-left: 10px;">
+                    <button class="button button1">submit</button>
 
-                    <input type="button" value="Submit" class="submit"/> 
-                    <!-- <button class="button button1">submit</button> -->
+
                 </form>   
             </div>
             <div id="results" class="col-lg-7 col-md-12">
                 {% if data %}
                 
-                <p >prediction: </p>
-                <p id="Prediction" style="color: white; background-color: green;">{{data.prediction}}</p>
+                    <p>prediction: </p>
+                    {% if data.prediction == "Neutral" %}
+                    <p id="Prediction" style="color: white; background-color: red;">{{data.prediction}}</p>
+                    <p id="pConfidence" style="color: white; background-color: red;">{{data.certainty}}%</p>
+                    <script>
+                        // creates a paragraph element displaying teh value of 1-data.certainty
+                        document.getElementById("pConfidence").innerHTML = {{100-data.certainty}}+"%";
+                    </script>
+                    {% else %}
+                    <p id="Prediction" style="color: white; background-color: green;">{{data.prediction}}</p>
+                    <script>
+                        document.getElementById("pConfidence").innerHTML = {{data.certainty}}+"%";
+                    </script>
+                    {% endif %}
                 
-                <div id="graph">
+                <!-- <div id="graph">
                     <canvas id="stockHistoryChart"></canvas>
                     <script>
                         function createChart(history) {
@@ -286,7 +187,7 @@
                             );    
                         }
 
-                        createChart("{{data.history}}");
+                        createChart("{{data.history}}"); -->
                         
                     </script>
                 </div>

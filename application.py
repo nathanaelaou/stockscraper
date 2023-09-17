@@ -39,10 +39,10 @@ def get_ticker_prediction():
     # prediction = predict(headlines).tolist()
     # prediction.append(ticker)
 
-    overall_sentiment_int = calculate(ticker)[0]
+    overall_sentiment_int = calculate(ticker)
     
     history = get_1_yr_history(ticker)
-    return render_template('index.html', data={"prediction" : overall_sentiment_int, "history" : history.to_json(orient='split')})
+    return render_template('index.html', data={"prediction" : overall_sentiment_int[0],  "certainty": overall_sentiment_int[1], "history" : history.to_json(orient='split')})
 
 
 def predict(headlines):
